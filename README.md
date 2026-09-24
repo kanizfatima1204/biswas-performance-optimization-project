@@ -1,0 +1,66 @@
+# Biswas IT Firm: Website Performance Optimization Demo
+
+This repository contains a self-built Laravel 12, Vue 3 and Inertia demo for the Biswas IT Firm performance engineering assignment. It is the selected website under audit; it is not a third-party client site.
+
+## Deliverables and current status
+
+| Requirement | Status |
+|---|---|
+| Selected website | This self-built Biswas Performance Lab demo |
+| Initial performance report | Not measured yet. See `docs/PERFORMANCE-AUDIT.md` for the report template and test method. |
+| Identified problems | See audit document; initial findings are code inspection, not Lighthouse findings. |
+| Optimization plan | See audit document. |
+| Optimized website | Implemented in this repository; production build must be generated for deployment. |
+| Before/after result | Sample seed rows are illustrative only. Replace with real, comparable Lighthouse runs. |
+| Mobile analysis | Responsive implementation is documented; mobile Lighthouse evidence is pending. |
+| Code changes | See sections below and the audit document. |
+| GitHub repository | Not published. This checkout has no `.git` directory or configured remote. |
+| Live demo | Not deployed. No live URL is available. |
+| Technical explanation | See audit document. |
+
+Do not submit the sample figures in the report as measured outcomes. No Lighthouse baseline or optimized run was present in this checkout.
+
+## Run locally
+
+Requirements: PHP 8.2+, Composer, Node.js 20+, and MySQL/MariaDB (or configure another Laravel-supported database).
+
+```powershell
+composer install
+Copy-Item .env.example .env
+php artisan key:generate
+npm install
+```
+
+Set valid database credentials in `.env`, then:
+
+```powershell
+php artisan migrate --seed
+npm run build
+php artisan serve
+```
+
+Open `http://127.0.0.1:8000` and `/performance-report`.
+
+## Record real measurements
+
+Use Chrome Lighthouse (or PageSpeed Insights for a deployed URL) with the same URL, browser version, device profile and throttling for baseline and optimized runs. Save the Lighthouse JSON/HTML reports. Record one row per run using:
+
+```powershell
+php artisan performance:record "Before optimization" mobile SCORE LCP_MS FCP_MS CLS TBT_MS TTFB_MS TRANSFER_KB REQUESTS --notes="Measured with Lighthouse; report: path/to/report.html; device/network conditions: ..."
+```
+
+Use `desktop` for desktop runs and `After optimization` for the optimized label. The report page reads rows from `performance_metrics`. Seeded sample rows are not deleted automatically when adding measurements, so remove the sample rows in the database before capturing the final report. See `docs/PERFORMANCE-AUDIT.md` for details and limitations.
+
+## Implemented performance work
+
+- Vite generates production assets with fingerprinted filenames, CSS splitting and Vue/icon chunks.
+- Home feature data is cached for five minutes with Laravel's configured cache store.
+- Laravel middleware adds security response headers and a short cache lifetime for the public home response.
+- CSS uses responsive breakpoints and a compact mobile navigation.
+- The current home page uses CSS and inline SVG icons; it has no external raster-image payload. The unused image preload was removed to avoid an unnecessary request.
+
+Static asset cache headers should be configured at the web server/CDN because static files are served before Laravel middleware. The middleware's static path check does not set headers for files served directly by Nginx/Apache.
+
+## Repository and deployment
+
+This workspace does not currently have a Git repository, remote, or deployed URL. Initialize Git, create/push a GitHub repository, deploy to a PHP-capable host with a database, and add the resulting URLs to `docs/SUBMISSION.md` when those actions are complete. Never represent a local URL as a public demo.
