@@ -24,14 +24,16 @@ Do not submit the sample figures in the report as measured outcomes. No Lighthou
 
 Requirements: PHP 8.2+, Composer, Node.js 20+, and MySQL/MariaDB (or configure another Laravel-supported database).
 
+On XAMPP, enable the ZIP extension in the `php.ini` used by the CLI (`php --ini` shows its path) before installing Composer dependencies. Uncomment or add `extension=zip`, save the file, and verify `php -m` lists `zip`. Composer needs ZIP support or an installed `unzip`/`7z` utility to extract package archives.
+
 ```powershell
-composer install
+composer install --prefer-dist
 Copy-Item .env.example .env
 php artisan key:generate
 npm install
 ```
 
-Set valid database credentials in `.env`, then:
+Set valid database credentials in `.env`, then run the migrations and seed data:
 
 ```powershell
 php artisan migrate --seed
