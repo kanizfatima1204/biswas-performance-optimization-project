@@ -5,7 +5,7 @@
     "buildCommand": "chmod -R ug+rwX bootstrap/cache storage && npm run build"
   },
   "deploy": {
-    "preDeployCommand": ["php artisan migrate --force"],
+    "preDeployCommand": ["php railway/migrate.php"],
     "healthcheckPath": "/up",
     "healthcheckTimeout": 300,
     "restartPolicyType": "ON_FAILURE",
