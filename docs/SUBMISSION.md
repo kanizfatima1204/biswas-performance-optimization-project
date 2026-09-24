@@ -7,12 +7,12 @@
 - [ ] Before/after mobile and desktop runs recorded under consistent conditions.
 - [ ] Sample database metrics removed and replaced with actual measured rows.
 - [ ] Mobile Lighthouse evidence attached.
-- [ ] GitHub repository created and URL added below.
+- [x] GitHub repository created and URL added below.
 - [ ] Public demo deployed and URL added below.
 
 ## Links
 
-- GitHub repository: **Not published**
+- GitHub repository: https://github.com/kanizfatima1204/biswas-performance-optimization-project
 - Live demo: **Not deployed**
 
 ## Measurement matrix

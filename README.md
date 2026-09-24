@@ -14,7 +14,7 @@ This repository contains a self-built Laravel 12, Vue 3 and Inertia demo for the
 | Before/after result | Sample seed rows are illustrative only. Replace with real, comparable Lighthouse runs. |
 | Mobile analysis | Responsive implementation is documented; mobile Lighthouse evidence is pending. |
 | Code changes | See sections below and the audit document. |
-| GitHub repository | Not published. This checkout has no `.git` directory or configured remote. |
+| GitHub repository | [biswas-performance-optimization-project](https://github.com/kanizfatima1204/biswas-performance-optimization-project) |
 | Live demo | Not deployed. No live URL is available. |
 | Technical explanation | See audit document. |
 
@@ -65,4 +65,8 @@ Static asset cache headers should be configured at the web server/CDN because st
 
 ## Repository and deployment
 
-This workspace does not currently have a Git repository, remote, or deployed URL. Initialize Git, create/push a GitHub repository, deploy to a PHP-capable host with a database, and add the resulting URLs to `docs/SUBMISSION.md` when those actions are complete. Never represent a local URL as a public demo.
+The project is published at [biswas-performance-optimization-project](https://github.com/kanizfatima1204/biswas-performance-optimization-project). A public application URL is still pending; do not represent a local URL as a public demo.
+
+### Railway deployment
+
+`railway.json` configures Railpack to build Vite assets, run Laravel migrations before deploy, and health-check Laravel's `/up` endpoint. Railway's Laravel Railpack integration supplies the PHP-FPM/Caddy web server. Set `APP_ENV=production`, `APP_DEBUG=false`, a generated `APP_KEY`, and `LOG_CHANNEL=stderr` in the Railway service variables. Connect a Railway MySQL or PostgreSQL service. For PostgreSQL set `DB_CONNECTION=pgsql` and `DB_URL` to the database service URL (for example `${{Postgres.DATABASE_URL}}`); MySQL can use the individual `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, and `DB_PASSWORD` variables or `DB_URL`. The migration pre-deploy step requires a reachable database.
